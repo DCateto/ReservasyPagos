@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disponibilidad</title>
+    <style>
+        body { background: #3C3B3F;  /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #605C3C, #3C3B3F);  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #605C3C, #3C3B3F); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+            }
+    </style>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {%for message in messages%}
+        <p>{{message}}</p>
+    {% endfor %}
+    {% endif %}
+    {%endwith%}
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+</head>
+<body>
+    <h1 class= "text-center mt-5 mb-5 text-primary"> Disponibilidad </h1>
+
+    <div class="container">
+        <div class="card">
+            <div class="card-body"> 
+                <form action="/actDisponibilidad" method="POST">
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label>Fecha</label>
+                            <input type="text" class="form-control mb-3" name="Fecha">
+                        </div>
+                        <div class="col">
+                            <label>Hora Reserva</label>
+                            <input type="text" class="form-control mb-3" name="Hora_Reserva">
+                        </div>
+                        <div class="col">
+                            <label>Hora Salida</label>
+                            <input type="text" class="form-control mb-3" name="Hora_Salida">
+                        </div>
+                        <div class="col">
+                            <button class="btn btn-primary mb-3 mt-4" type="submit">Mostrar</button>
+                        </div>
+                        
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <a type="button" class="btn btn-primary w-100" href="/Reservas">Reservar</a>
+                        </div>
+                    </div>
+                    
+                </form>
+                <table class="table table-borderer">
+                    <thead>
+                        <th scope="col">IDMesa</th>
+                        <th scope="col">Capacidad</th>
+                        <th scope="col">Ambiente</th>
+                    </thead>
+                    <tbody>
+                        {% for d in data %}
+                        <tr>
+                            <td>{{d.IDMesa}}</td>
+                            <td>{{d.Capacidad}}</td>
+                            <td>{{d.Ambiente}}</td>
+                        </tr>
+
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+<script src="{{url_for('static',filename='js/main.js')}}"></script>
+</body>
+</html>

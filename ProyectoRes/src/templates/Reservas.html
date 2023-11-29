@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservas</title>
+    <style>
+        body { background: #3C3B3F;  /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #605C3C, #3C3B3F);  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #605C3C, #3C3B3F); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+            }
+    </style>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {%for message in messages%}
+        <p>{{message}}</p>
+    {% endfor %}
+    {% endif %}
+    {%endwith%}
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+</head>
+<body>
+    <h1 class= "text-center mt-5 mb-5 text-primary"> Reservas </h1>
+
+    <div class="container">
+        <div class="card">
+            <div class="card-body"> 
+                <form action="/add_reserva" method="POST">
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label>Nombre</label>
+                            <input type="text" class="form-control mb-3" name="Nombre">
+                        </div>
+                        <div class="col">
+                            <label>Contacto</label>
+                            <input type="text" class="form-control mb-3" name="Contacto">
+                        </div>
+                        <div class="col">
+                            <label>Mesa</label>
+                            <input type="text" class="form-control mb-3" name="Mesa">
+                        </div>
+                        <div class="col">
+                            <label>Hora Reserva</label>
+                            <input type="text" class="form-control mb-3" name="Hora_Reserva">
+                        </div>
+                        <div class="col">
+                            <label>Hora Salida</label>
+                            <input type="text" class="form-control mb-3" name="Hora_Salida">
+                        </div>
+                        <div class="col">
+                            <label>Fecha</label>
+                            <input type="text" class="form-control mb-3" name="Fecha">
+                        </div>
+                        <div class="col">
+                            <button class="btn btn-primary mb-3 mt-4" type="submit">Save</button>
+                        </div>
+                    </div>
+                    
+                </form>
+                <table class="table table-borderer">
+                    <thead>
+                        <th scope="col">ID Reserva</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Contacto</th>
+                        <th scope="col">Mesa</th>
+                        <th scope="col">Hora Reserva</th>
+                        <th scope="col">Hora Salida</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Eliminar</th>
+                    </thead>
+                    <tbody>
+                        {% for d in data %}
+                        <tr>
+                            <td>{{d.IDReserva}}</td>
+                            <td>{{d.Nombre}}</td>
+                            <td>{{d.Contacto}}</td>
+                            <td>{{d.Mesa}}</td>
+                            <td>{{d.Hora_Reserva}}</td>
+                            <td>{{d.Hora_Salida}}</td>
+                            <td>{{d.Fecha}}</td>
+                            <td><a href="/delete/{{d.IDReserva}}" class="btn btn-danger btn-sm btn-delete">Delete</a></td>
+                        </tr>
+
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+<script src="{{url_for('static',filename='js/main.js')}}"></script>
+</body>
+</html>
